@@ -1,0 +1,93 @@
+
+#include "two_axis_control_cmd.h"
+#include <Servo.h>
+#include "CalServo.h" 
+
+//////
+// global variables. 
+//     This is an accepted practice in Arduino programming. 
+//////
+
+CalServo servos[2]; 
+
+/**
+ * This code runs at power on. 
+ */ 
+void setup() 
+{
+    // we disignate two pwm pins as servo control pins. 
+    //x_servo.attach(X_SERVO_PIN);
+    //y_servo.attach(Y_SERVO_PIN);
+
+    // we use serial to recieve commands from the host.
+    Serial.begin(9600);
+    pinMode(13, OUTPUT); 
+    digitalWrite(13, HIGH); 
+    delay(200); 
+    digitalWrite(13, LOW); 
+
+    servos[0].attach(5); 
+    servos[0].write(179); 
+    delay(1000);
+    servos[0].write(0); 
+
+    Serial.println("done setup"); 
+
+} 
+
+/**
+ * This code runs in a loop during runtime. 
+ */ 
+void loop() 
+{ 
+    //serialDo();
+    delay(500);
+    Serial.println("loop."); 
+} 
+
+/**
+ * SerialEvent occurs whenever a new data comes in the hardware serial RX.
+ * This routine is run between each time loop() runs, so using delay inside 
+ * loop can delay response.
+ * Multiple bytes of data may be available.
+ */
+void serialDo() {
+//void serialEvent() {
+    // we need at least 3 bytes. 
+    if (Serial.available() < 3) {
+        Serial.println("not enough serial."); 
+        return;
+    }
+
+    const unsigned char cmd = (unsigned char) Serial.read();
+    const unsigned char index = (unsigned char) Serial.read(); 
+    const unsigned char param = (unsigned char) Serial.read(); 
+    Serial.println("cmd recieved: "); 
+    Serial.println(cmd, HEX); 
+    Serial.println(index, DEC); 
+    Serial.println(param, DEC); 
+
+
+    switch (cmd)
+    { 
+    case CMD_SET_MAX_POS:
+        servos[index].setMax(param); 
+        break; 
+    case CMD_SET_MIN_POS:
+        servos[index].setMin(param); 
+        break; 
+    case CMD_GO_TO_POS:
+        servos[index].write(param); 
+        break; 
+    case CMD_GO_TO_RELATIVE:
+        servos[index].calibratedWrite(param); 
+        break; 
+    case CMD_ADD_SERVO:
+        servos[index].attach(param); 
+        servos[index].write(179); 
+        break; 
+    default:
+        Serial.println("unknown cmd"); 
+        break; 
+    } 
+}

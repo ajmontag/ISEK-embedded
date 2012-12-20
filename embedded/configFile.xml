@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<invertX val="1"/>
+	<invertY val="0"/>
+	<imageWidth val="160"/>
+	<imageHeight val="120"/>
+	<tolerance val="10"/>
+	<prevAngle val="-1"/>
+	<showGUI val="1"/>
+	<deadzone val="0.095"/>
+	<serialPortPath val="/dev/ttyUSB0"/>
+	<maxY val="144"/>
+	<minY val="72"/>
+	<maxX val="134"/>
+	<minX val="40"/>
+	<servo1 val="10"/>
+	<servo2 val="9"/>
+	<CAM val="1"/>
+</document>

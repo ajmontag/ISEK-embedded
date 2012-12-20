@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+	<invertX val="1"/>
+	<invertY val="0"/>
+	<imageWidth val="160"/>
+	<imageHeight val="120"/>
+	<tolerance val="10"/>
+	<prevAngle val="-1"/>
+	<showGUI val="1"/>
+	<deadzone val=".2"/>
+	<maxY vale="500"/>
+	<minY val="0"/>
+	<maxX val="0"/>
+	<minX val="0"/> 
+	<servo1 val="10"/>
+	<servo2 val="10"/>
+</document>
